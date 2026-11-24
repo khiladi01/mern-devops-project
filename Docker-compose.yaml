@@ -1,0 +1,29 @@
+services:
+  frontend:
+    image: frontend:latest
+    build: ./frontend
+    ports:
+      - "5175:5175"
+    depends_on:
+      - backend
+  
+  backend:
+   image: backend:latest
+   build: /backend
+   ports:
+     - "5000/5000"
+   volumes:
+     - ./backend:/app
+
+  db:
+    image: mongodb:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: akshayraj3435_db_user
+      MONGO_INITDB_ROOT_PASSWORD: mWLFcOQdvcyWNqio
+      MONGO_INITDB_DATABASE: Employee-Management-Database
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+volumes:
+  mongodb_data:
